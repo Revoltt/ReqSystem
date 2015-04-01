@@ -33,13 +33,13 @@ public class DOMStructBuilder {
 		return null;
 	}
 	
-	public static void main(String[] args) throws IOException
-	{
-		Document test = getDocumentFromFile("Draft_ETSI_TS_103 097 v1.1.12.xhtml");
-		Tree t = new Tree();
-		t.makeTreeFromDoc(test);
-		XMLOutputter x = new XMLOutputter(Format.getPrettyFormat());
-		PrintStream out = new PrintStream("output.txt");
-		x.output(test, out);
-	}
+//	public static void main(String[] args) throws IOException
+//	{
+//		Document test = getDocumentFromFile("Draft_ETSI_TS_103 097 v1.1.12.xhtml");
+//		Tree t = new Tree();
+//		t.makeTreeFromDoc(test);
+//		XMLOutputter x = new XMLOutputter(Format.getPrettyFormat());
+//		PrintStream out = new PrintStream("output.txt");
+//		x.output(test, out);
+//	}
 }

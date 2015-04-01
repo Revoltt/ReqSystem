@@ -16,6 +16,11 @@ public class Tree {
 	private PrintStream out;
 	private MyStack headers = new MyStack();
 	
+	public Node getRoot()
+	{
+		return root;
+	}
+	
 	private void printJDOMTree(Element e, String space)  
 	{
 		if (!e.getName().equals("font"))
@@ -37,7 +42,12 @@ public class Tree {
 	
 	private void printMyTree(Node e, String space) 
 	{
-		out.println(space + e.getType() + " " + e.getNum());
+		out.print(space + e.getType() + " " + e.getNum());
+		if (e.getType().equals("requality"))
+		{
+			out.print(" " + e.getA() + " " + e.getId());
+		}
+		out.println();
 		List<Node> c = e.getChildren();
 		for (int i = 0; i < c.size(); i++)
 		{
@@ -59,10 +69,26 @@ public class Tree {
 		{
 			if (c.get(i).getClass().equals(Element.class))
 			{
-				if (((Element)c.get(i)).getName().equals("font") || 
-						((Element)c.get(i)).getName().equals("blockquote") || 
-						((Element)c.get(i)).getName().equals("a"))
+				if (((Element)c.get(i)).getName().equals("a") && cur.getType().equals("requality"))
+				{
+					cur.setA(true);
+				} 
+				else if (((Element)c.get(i)).getName().equals("font") || 
+						((Element)c.get(i)).getName().equals("blockquote"))// || 
+						//((Element)c.get(i)).getName().equals("a"))
 					makeTree((Element)c.get(i), cur);
+				else if (((Element)c.get(i)).getName().equals("span") && 
+						((Element)c.get(i)).getAttribute("class").getValue().startsWith("requality_text"))
+				{
+					Node temp = new Node((Element)c.get(i), counter);
+					counter++;
+					temp.setType("requality");
+					temp.setId(((Element)c.get(i)).getAttribute("class").getValue().substring(18));
+					temp.setParent(cur);
+					temp.setDepth(cur.getDepth() + 1);
+					cur.addChild(temp);
+					makeTree((Element)c.get(i), temp);
+				}
 				else
 				{
 					Node temp = new Node((Element)c.get(i), counter);
