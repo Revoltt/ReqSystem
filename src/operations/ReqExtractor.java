@@ -23,9 +23,13 @@ public class ReqExtractor {
 	
 	private static void goTree(Node n)
 	{
-		if (n.getType().equals("Requality"))
+		if (n.getType().equals("requality"))
 		{
 			String id = n.getId();
+//			if (id.equals("396e30ea-4ed3-4a45-a2cd-da9a9ba083d6"))
+//			{
+//				System.out.println("aaaa");
+//			}
 			int i = isFound(id);
 			Location x = new Location(n);
 			if (i == -1)
@@ -39,10 +43,11 @@ public class ReqExtractor {
 				reqs.get(i).addLocation(x);
 			}
 		}
-		for (int i = 0; i < n.getChildren().size(); i++)
-		{
-			goTree(n.getChildren().get(i));
-		}
+		if (n.getChildren() != null)
+			for (int i = 0; i < n.getChildren().size(); i++)
+			{
+				goTree(n.getChildren().get(i));
+			}
 	}
 	
 	public static ArrayList<Requality> extractReqsFromTree(Tree t)

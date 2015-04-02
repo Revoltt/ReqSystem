@@ -57,6 +57,7 @@ public class Tree {
 			}
 			else
 			{
+				out.println(space + "text");
 				out.println(c.get(i).getText());
 			}
 		}
@@ -65,17 +66,20 @@ public class Tree {
 	private void makeTree(Element e, Node cur)
 	{
 		List<Content> c = e.getContent();
+		boolean aTag = true;
 		for (int i = 0; i < c.size(); i++)
 		{
 			if (c.get(i).getClass().equals(Element.class))
 			{
-				if (((Element)c.get(i)).getName().equals("a") && cur.getType().equals("requality"))
+				if (aTag && ((Element)c.get(i)).getName().equals("a") && cur.getType().equals("requality"))
 				{
 					cur.setA(true);
+					aTag = false;
 				} 
 				else if (((Element)c.get(i)).getName().equals("font") || 
-						((Element)c.get(i)).getName().equals("blockquote"))// || 
-						//((Element)c.get(i)).getName().equals("a"))
+						((Element)c.get(i)).getName().equals("blockquote") || 
+						((Element)c.get(i)).getName().equals("a") ||
+						((Element)c.get(i)).getName().equals("img"))
 					makeTree((Element)c.get(i), cur);
 				else if (((Element)c.get(i)).getName().equals("span") && 
 						((Element)c.get(i)).getAttribute("class").getValue().startsWith("requality_text"))

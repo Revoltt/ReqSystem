@@ -9,7 +9,7 @@ public class Node {
 	private String type;
 	private String id; // for requality tags
 	private boolean a; // for requality tags
-	private List<Node> children;
+	private ArrayList<Node> children;
 	private Node parent;
 	private int num; // number of line of the element
 	private String text; // only for text nodes
@@ -45,7 +45,7 @@ public class Node {
 	public void setA(boolean i) { a = i; }
 	public String getType() { return type; }
 	public void setType(String t) { type = t; }
-	public List<Node> getChildren() { return children; }
+	public ArrayList<Node> getChildren() { return children; }
 	public void addChild(Node x) { children.add(x); }
 	public void clearChildren() {children = null; }
 }
