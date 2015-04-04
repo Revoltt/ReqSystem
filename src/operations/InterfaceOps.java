@@ -60,6 +60,7 @@ public class InterfaceOps {
 		
 		TextOps.createActualLocations();
 		// output of all actual locations and their paths, and similar paths in the second document
+		int q = 0;
 		for (int i = 0; i < reqs1.size(); i++)
 		{
 			fout.println("REQUALITY " + i);
@@ -83,12 +84,19 @@ public class InterfaceOps {
 				ArrayList<Node> simPath = TransferManager.findSimilarPath(path, tree2);
 				path = TransferManager.pathTransform(path);
 				fout.println("LOWEST HEADER OF TEXT1");
-				fout.println(TransferManager.extractLowestSectionText(path));
+				String s1 = TransferManager.extractLowestSectionText(path);
+				fout.println(s1);
 				fout.println("LOWEST HEADER OF TEXT2");
-				fout.println(TransferManager.extractLowestSectionText(simPath));
+				String s2 = TransferManager.extractLowestSectionText(simPath);
+				fout.println(s2);
 				fout.println();
-				ArrayList<Diff> diffRes = TransferManager.diff(TransferManager.extractLowestSectionText(path), TransferManager.extractLowestSectionText(simPath));
-				System.out.print(diffRes.size());
+				
+				System.out.print(q + " ");
+				s1 = TextOps.regTransform(s1);
+				s2 = TextOps.regTransform(s2);
+				ArrayList<Diff> diffRes = TransferManager.diff(s1, s2);
+				System.out.println(diffRes.size());
+				q++;
 			}
 			fout.println("------------------------------");
 			

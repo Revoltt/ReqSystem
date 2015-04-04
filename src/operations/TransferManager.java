@@ -12,12 +12,8 @@ import support.Tree;
 public class TransferManager {
 	public static boolean nodeTextEqual(Node a, Node b)
 	{
-		String s1 = TextOps.nodeTextExtract(a).replaceAll("\\s$", "");
-		s1 = s1.replaceAll("\r?\n", " ").replaceAll("\t", " ").replaceAll("\\s{2,}", " ");
-		s1 = s1.replaceAll("\\s[\\.]", ".").replaceAll("\\s[,]", ",");
-		String s2 = TextOps.nodeTextExtract(b).replaceAll("\\s$", "");
-		s2 = s2.replaceAll("\r?\n", " ").replaceAll("\t", " ").replaceAll("\\s{2,}", " ");
-		s2 = s2.replaceAll("\\s[\\.]", ".").replaceAll("\\s[,]", ",");
+		String s1 = TextOps.regTransform(TextOps.nodeTextExtract(a));
+		String s2 = TextOps.regTransform(TextOps.nodeTextExtract(b));
 		return s1.equals(s2);
 	}
 	

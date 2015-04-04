@@ -117,5 +117,29 @@ public class TextOps {
 			//System.out.println("checked");
 		}
 	}
+
+	public static String regTransform(String s) {
+		//String temp = s.replaceAll("\\s$", "").replaceAll("\\s\n", "\n");
+		//temp = temp.replaceAll("\r?\n", " ").replaceAll("\t", " ").replaceAll("\\s{2,}", " ");
+		//temp = temp.replaceAll("\\s[\\.]", ".").replaceAll("\\s[,]", ",");
+		String temp = s.replaceAll("\\s{1,}$", "");
+		temp = temp.replaceAll("\\(", " (");
+		temp = temp.replaceAll("\\[", " [");
+		temp = temp.replaceAll("\t", " ");
+		
+		temp = temp.replaceAll("\\.", ". ").replaceAll(",", ", ");
+		temp = temp.replaceAll("\\;", "; ").replaceAll(":", ": ");
+		
+		temp = temp.replaceAll("\\s{1,}\n", "\n");
+		temp = temp.replaceAll("\\s{2,}", " ");
+		temp.replaceAll("\n{2,}", "\n");
+		temp = temp.replaceAll("\\s[\\.]", ".").replaceAll(" [,]", ",");
+		temp = temp.replaceAll("\\s[\\;]", ";").replaceAll(" [:]", ":");
+		temp = temp.replaceAll("\\s[\\)]", ")").replaceAll("[\\(] ", "(");
+		temp = temp.replaceAll("\\s[\\]]", "]").replaceAll("[\\[] ", "[");
+		
+		
+		return temp;
+	}
 	
 }
