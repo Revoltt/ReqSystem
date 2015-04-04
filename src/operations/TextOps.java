@@ -72,7 +72,7 @@ public class TextOps {
 						&& (!res.equals("")))
 						res += " ";
 				res += s;
-			} else
+			} else if (!lst.get(i).getType().startsWith("h")) // do we need texts of included sections???
 			{
 				String s = sectionTextExtract(lst.get(i));
 				res += "\n" + s;

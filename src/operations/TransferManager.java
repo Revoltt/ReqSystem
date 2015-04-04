@@ -65,4 +65,16 @@ public class TransferManager {
 		res.add(cur);
 		return res;
 	}
+	
+	public static String extractLowestSectionText(ArrayList<Node> path)
+	{
+		int i = path.size() - 1;
+		while (i >= 0)
+		{
+			if (path.get(i).getType().startsWith("h") || path.get(i).getType().equals("body"))
+				break;
+			i--;
+		}
+		return TextOps.sectionTextExtract(path.get(i));
+	}
 }

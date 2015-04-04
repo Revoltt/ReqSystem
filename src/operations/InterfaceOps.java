@@ -1,6 +1,7 @@
 package operations;
 
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.jdom2.*;
@@ -52,32 +53,41 @@ public class InterfaceOps {
 		makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		getReqs(tree1);
 		
+		@SuppressWarnings("resource")
+		PrintStream fout = new PrintStream("sections.txt");
+		
 		TextOps.createActualLocations();
-		// output of all actual locations and their paths
+		// output of all actual locations and their paths, and similar paths in the second document
 		for (int i = 0; i < reqs1.size(); i++)
 		{
-			System.out.println("REQUALITY " + i);
+			fout.println("REQUALITY " + i);
 			Requality curReq = reqs1.get(i);
 			for (int j = 0; j < curReq.getActualLocationlist().size(); j++)
 			{
-				System.out.println("LOCATION " + j);
-				System.out.println(curReq.getActualLocationlist().get(j).getText());
+				fout.println("LOCATION " + j);
+				fout.println(curReq.getActualLocationlist().get(j).getText());
 				ArrayList<Node> path = curReq.getActualLocationlist().get(j).getPath();
 				
-				System.out.println("PATH:");
+				fout.println("PATH:");
 				for (int k = 0; k < path.size(); k++)
 				{
-					System.out.println(path.get(k).getType() + " " + TextOps.nodeTextExtract(path.get(k)));
+					fout.println(path.get(k).getType() + " " + TextOps.nodeTextExtract(path.get(k)));
 				}
 				
-				System.out.println("SIMILAR PATH FOUND:");
+//				System.out.println("SIMILAR PATH FOUND:");
+//				ArrayList<Node> simPath = TransferManager.findSimilarPath(path, tree2);
+//				for (int k = simPath.size() - 1; k >= 0; k--)
+//					fout.println(simPath.get(k).getType() + " " + TextOps.nodeTextExtract(simPath.get(k)));
 				ArrayList<Node> simPath = TransferManager.findSimilarPath(path, tree2);
-				for (int k = simPath.size() - 1; k >= 0; k--)
-					System.out.println(simPath.get(k).getType() + " " + TextOps.nodeTextExtract(simPath.get(k)));
-				System.out.println();
+				path = TransferManager.pathTransform(path);
+				fout.println("LOWEST HEADER OF TEXT1");
+				fout.println(TransferManager.extractLowestSectionText(path));
+				fout.println("LOWEST HEADER OF TEXT2");
+				fout.println(TransferManager.extractLowestSectionText(simPath));
+				fout.println();
 				
 			}
-			System.out.println("------------------------------");
+			fout.println("------------------------------");
 			
 		}
 		
