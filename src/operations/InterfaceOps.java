@@ -19,13 +19,13 @@ public class InterfaceOps {
 	
 	public static void makeTrees(String filename1, String filename2) throws FileNotFoundException
 	{
-//		Document d2 = DOMStructBuilder.getDocumentFromFile(filename2);
-//		tree2 = new Tree();
-//		tree2.makeTreeFromDoc(d2);
-		
 		Document d1 = DOMStructBuilder.getDocumentFromFile(filename1);
 		tree1 = new Tree();
 		tree1.makeTreeFromDoc(d1);
+		
+		Document d2 = DOMStructBuilder.getDocumentFromFile(filename2);
+		tree2 = new Tree();
+		tree2.makeTreeFromDoc(d2);
 		
 	}
 	
@@ -69,14 +69,22 @@ public class InterfaceOps {
 				{
 					System.out.println(path.get(k).getType() + " " + TextOps.nodeTextExtract(path.get(k)));
 				}
+				
+				System.out.println("SIMILAR PATH FOUND:");
+				ArrayList<Node> simPath = TransferManager.findSimilarPath(path, tree2);
+				for (int k = simPath.size() - 1; k >= 0; k--)
+					System.out.println(simPath.get(k).getType() + " " + TextOps.nodeTextExtract(simPath.get(k)));
 				System.out.println();
+				
 			}
 			System.out.println("------------------------------");
 			
 		}
 		
-		// get section text test
-		TextOps.sectionTextExtract(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent());
-		System.out.println(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent().getAllText());
+		// get section text and section text memory tests
+		//TextOps.sectionTextExtract(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent());
+		//System.out.println(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent().getAllText());
+	
+		
 	}
 }
