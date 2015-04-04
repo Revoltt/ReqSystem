@@ -19,9 +19,9 @@ public class InterfaceOps {
 	
 	public static void makeTrees(String filename1, String filename2) throws FileNotFoundException
 	{
-		Document d2 = DOMStructBuilder.getDocumentFromFile(filename2);
-		tree2 = new Tree();
-		tree2.makeTreeFromDoc(d2);
+//		Document d2 = DOMStructBuilder.getDocumentFromFile(filename2);
+//		tree2 = new Tree();
+//		tree2.makeTreeFromDoc(d2);
 		
 		Document d1 = DOMStructBuilder.getDocumentFromFile(filename1);
 		tree1 = new Tree();
@@ -48,6 +48,7 @@ public class InterfaceOps {
 	
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		//makeTrees("acos.html.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		getReqs(tree1);
 		
@@ -75,6 +76,7 @@ public class InterfaceOps {
 		}
 		
 		// get section text test
-		System.out.println(TextOps.sectionTextExtract(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent()));
+		TextOps.sectionTextExtract(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent());
+		System.out.println(reqs1.get(8).getLocationlist().get(0).getNode().getParent().getParent().getParent().getParent().getAllText());
 	}
 }

@@ -77,12 +77,16 @@ public class Tree {
 					aTag = false;
 				} 
 				else if (((Element)c.get(i)).getName().equals("font") || 
+						((Element)c.get(i)).getName().equals("i") || 
+						((Element)c.get(i)).getName().equals("b") || 
 						((Element)c.get(i)).getName().equals("blockquote") || 
 						((Element)c.get(i)).getName().equals("a") ||
+						((Element)c.get(i)).getName().equals("sup") ||
 						((Element)c.get(i)).getName().equals("img") || 
 						((Element)c.get(i)).getName().equals("br"))
 					makeTree((Element)c.get(i), cur);
 				else if (((Element)c.get(i)).getName().equals("span") && 
+						(((Element)c.get(i)).getAttribute("class") != null) &&
 						((Element)c.get(i)).getAttribute("class").getValue().startsWith("requality_text"))
 				{
 					Node temp = new Node((Element)c.get(i), counter);

@@ -14,6 +14,7 @@ public class Node {
 	private int num; // number of line of the element
 	private String text; // only for text nodes
 	private int depth;
+	private String allText; // for all Nodes, is not "" if getSectionText was called for this Node
 	
 	public Node(Element e, int i) 
 	{
@@ -22,8 +23,10 @@ public class Node {
 		a = false;
 		depth = 0;
 		num = i;
+		text = "";
+		allText = "";
 		children = new ArrayList<Node>();
-		if (type.equals("span") && e.getAttribute("class").toString().startsWith("requality_text"))
+		if (type.equals("span") && (e.getAttribute("class") != null) && e.getAttribute("class").toString().startsWith("requality_text"))
 		{
 			type = "requality";
 		}
@@ -31,6 +34,8 @@ public class Node {
 
 	public Node() {}
 	
+	public String getAllText() { return allText; }
+	public void setAllText(String s) { allText = s; }
 	public int getNum() { return num; }
 	public void setNum(int d) { num = d; }
 	public int getDepth() { return depth; }

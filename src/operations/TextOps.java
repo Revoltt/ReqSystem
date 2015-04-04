@@ -45,6 +45,8 @@ public class TextOps {
 	
 	public static String sectionTextExtract(Node n) // extracts text whole section - header and paragraphs
 	{
+		if (!n.getAllText().equals(""))
+			return n.getAllText();
 		String res = "";
 		ArrayList<Node> lst = n.getChildren();
 		for (int i = 0; i < lst.size(); i++)
@@ -76,6 +78,7 @@ public class TextOps {
 				res += "\n" + s;
 			}
 		}
+		n.setAllText(res);
 		return res;
 	}
 
