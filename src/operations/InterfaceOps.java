@@ -1,5 +1,7 @@
 package operations;
 
+import googleDiff.diff_match_patch.Diff;
+
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -85,7 +87,8 @@ public class InterfaceOps {
 				fout.println("LOWEST HEADER OF TEXT2");
 				fout.println(TransferManager.extractLowestSectionText(simPath));
 				fout.println();
-				
+				ArrayList<Diff> diffRes = TransferManager.diff(TransferManager.extractLowestSectionText(path), TransferManager.extractLowestSectionText(simPath));
+				System.out.print(diffRes.size());
 			}
 			fout.println("------------------------------");
 			

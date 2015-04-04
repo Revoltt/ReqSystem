@@ -1,6 +1,10 @@
 package operations;
 
+import googleDiff.diff_match_patch;
+import googleDiff.diff_match_patch.Diff;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import support.Node;
 import support.Tree;
@@ -76,5 +80,12 @@ public class TransferManager {
 			i--;
 		}
 		return TextOps.sectionTextExtract(path.get(i));
+	}
+	
+	public static ArrayList<Diff> diff(String s1, String s2)
+	{
+		diff_match_patch diffClass = new diff_match_patch();
+		LinkedList<Diff> lst = diffClass.diff_main(s1, s2);
+		return new ArrayList<Diff>(lst);
 	}
 }
