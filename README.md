@@ -11,5 +11,7 @@ InterfaceOps contains operations which this project is supposed to do.
 
 TextOps contains operations for extracting plain text from Locations, headers and sections.
 
-ToDo: ActualLocation should contain not only text of some Locations, going together, but also extracted path of Nodes to the ActualLocation place.
+ActualLocation contains text of Locations, going together, and extracted path of Nodes to the ActualLocation place.
+
+ToDo: add ability to remember if section text was extracted, add search of path in the second document Tree
 
