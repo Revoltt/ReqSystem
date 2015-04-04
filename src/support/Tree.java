@@ -79,7 +79,8 @@ public class Tree {
 				else if (((Element)c.get(i)).getName().equals("font") || 
 						((Element)c.get(i)).getName().equals("blockquote") || 
 						((Element)c.get(i)).getName().equals("a") ||
-						((Element)c.get(i)).getName().equals("img"))
+						((Element)c.get(i)).getName().equals("img") || 
+						((Element)c.get(i)).getName().equals("br"))
 					makeTree((Element)c.get(i), cur);
 				else if (((Element)c.get(i)).getName().equals("span") && 
 						((Element)c.get(i)).getAttribute("class").getValue().startsWith("requality_text"))
@@ -148,6 +149,8 @@ public class Tree {
 		counter++;
 		makeTree(r, root);
 		printMyTree(root,"");
+		out = new PrintStream("tags.txt");
+		printJDOMTree(r,"");
 		
 	}
 }

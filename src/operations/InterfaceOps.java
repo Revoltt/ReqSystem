@@ -46,28 +46,62 @@ public class InterfaceOps {
 		return path;
 	}
 	
+	public static void createActualLocations()
+	{
+		/// add actual location lists to requalities
+		for (int i = 0; i < reqs1.size(); i++)
+		{
+			Requality curReq = reqs1.get(i);
+			String curActualLocation = "";
+			Location prevLocation = null;
+			for (int j = 0; j < curReq.getLocationlist().size(); j++)
+			{
+				Location curLocation = curReq.getLocationlist().get(j);
+				if ((j != 0) && (prevLocation.getNode().getParent().equals(curLocation.getNode().getParent())) && (prevLocation.getChildNumber() + 1 == curLocation.getChildNumber()))
+				{
+					curActualLocation += TextOps.nodeTextExtract(curLocation.getNode());
+				} else if (j != 0)
+				{
+					curReq.addActualLocation(curActualLocation);
+					curActualLocation = TextOps.nodeTextExtract(curLocation.getNode());
+				} else
+				{
+					curActualLocation += TextOps.nodeTextExtract(curLocation.getNode());
+				}
+				prevLocation = curLocation;
+			}
+			curReq.addActualLocation(curActualLocation);
+			System.out.println("checked");
+		}
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		getReqs(tree1);
-		for (int j = 0; j < reqs1.size(); j++)
+		
+		// example of path getting of all requirements
+		for (int i = 0; i < reqs1.size(); i++)
 		{
-			System.out.println("REQUALITY " + j);
-			Requality curReq = reqs1.get(j);
-			for (int k = 0; k < curReq.getLocationlist().size(); k++)
+			System.out.println("REQUALITY " + i);
+			Requality curReq = reqs1.get(i);
+			for (int j = 0; j < curReq.getLocationlist().size(); j++)
 			{
-				System.out.println("LOCATION " + k);
-				
-				ArrayList<Node> testPath = getLocationPath(curReq.getLocationlist().get(k));
-				System.out.println(TextOps.littleTextExtractor(curReq.getLocationlist().get(k).getNode()));
+				System.out.println("LOCATION " + j);
+				ArrayList<Node> testPath = getLocationPath(curReq.getLocationlist().get(j));
+				System.out.println(TextOps.nodeTextExtract(curReq.getLocationlist().get(j).getNode()));
 				System.out.println("PATH:");
-				for (int i = 0; i < testPath.size(); i++)
+				for (int k = 0; k < testPath.size(); k++)
 				{
-					if (testPath.get(i).getType().startsWith("h"))
-						System.out.println(TextOps.littleTextExtractor(testPath.get(i)));
+					if (testPath.get(k).getType().startsWith("h"))
+						System.out.println(TextOps.nodeTextExtract(testPath.get(k)));
 				}
 				System.out.println();
 			}
 		}
+		
+		// example of section extraction
+		System.out.println(TextOps.sectionTextExtract(reqs1.get(1).getLocationlist().get(0).getNode().getParent().getParent()));
+		createActualLocations();
 	}
 }

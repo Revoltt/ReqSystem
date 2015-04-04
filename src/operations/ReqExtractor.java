@@ -26,10 +26,6 @@ public class ReqExtractor {
 		if (n.getType().equals("requality"))
 		{
 			String id = n.getId();
-//			if (id.equals("396e30ea-4ed3-4a45-a2cd-da9a9ba083d6"))
-//			{
-//				System.out.println("aaaa");
-//			}
 			int i = isFound(id);
 			Location x = new Location(n);
 			if (i == -1)

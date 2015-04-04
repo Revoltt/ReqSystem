@@ -47,5 +47,5 @@ public class Node {
 	public void setType(String t) { type = t; }
 	public ArrayList<Node> getChildren() { return children; }
 	public void addChild(Node x) { children.add(x); }
-	public void clearChildren() {children = null; }
+	public void clearChildren() { children = null; }
 }
