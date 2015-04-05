@@ -22,4 +22,5 @@ TransferManager contains:
 	Function extractLowestSectionText, which gets texts of sections, in which we need to transfer ActualLocation.
 
 	Simple symbol diff of two texts using GoogleDiff
+
 ToDo: get position of Location in first text, and find it in te second if GoogleDiff says everything's okay

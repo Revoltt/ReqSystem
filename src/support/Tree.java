@@ -77,8 +77,8 @@ public class Tree {
 					aTag = false;
 				} 
 				else if (((Element)c.get(i)).getName().equals("font") || 
-						((Element)c.get(i)).getName().equals("i") || 
-						((Element)c.get(i)).getName().equals("b") || 
+						//((Element)c.get(i)).getName().equals("i") || 
+						//((Element)c.get(i)).getName().equals("b") || 
 						((Element)c.get(i)).getName().equals("blockquote") || 
 						((Element)c.get(i)).getName().equals("a") ||
 						((Element)c.get(i)).getName().equals("sup") ||

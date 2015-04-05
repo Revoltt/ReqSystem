@@ -91,14 +91,27 @@ public class InterfaceOps {
 				fout.println(s2);
 				fout.println();
 				
-				// some symbol is broken so it does not allow to use "indexof" correctly ib some cases
+				// some symbol is broken so it does not allow to use "indexof" correctly in some cases
 				
 				System.out.print(q + " ");
 				s1 = TextOps.regTransform(s1);
 				s2 = TextOps.regTransform(s2);
-				ArrayList<Diff> diffRes = TransferManager.diff(s1, s2);
+				ArrayList<Diff> diffResult = TransferManager.diff(s1, s2);
 				String l = TextOps.regTransform(curReq.getActualLocationlist().get(j).getText());
-				System.out.println(diffRes.size() + " " + s1.indexOf(l));
+				
+				//we need to find exactly what symbol causes the problem,
+				//so we shall run a loop to compare l and s1 symbol by symbol
+				int c = 0;
+				for (int k = 0; k < s1.length(); k++)
+				{
+					if (c == l.length())
+						break;
+					if (s1.charAt(k) == l.charAt(c))
+						c++;
+					else 
+						c = 0;
+				}
+				System.out.println(diffResult.size() + " " + s1.indexOf(l) + " " + s2.indexOf(l));
 				q++;
 			}
 			fout.println("------------------------------");

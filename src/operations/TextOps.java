@@ -87,25 +87,33 @@ public class TextOps {
 		/// add actual location lists to requalities
 		for (int i = 0; i < InterfaceOps.reqs1.size(); i++)
 		{
+			//if (i == 15)
+			//	System.out.println("a");
 			Requality curReq = InterfaceOps.reqs1.get(i);
 			String curActualLocationText = "";
 			Location prevLocation = null;
 			for (int j = 0; j < curReq.getLocationlist().size(); j++)
 			{
 				Location curLocation = curReq.getLocationlist().get(j);
-				if ((j != 0) && (prevLocation.getNode().getParent().equals(curLocation.getNode().getParent())) && (prevLocation.getChildNumber() + 1 == curLocation.getChildNumber()))
+				if ((j != 0) && (prevLocation.getNode().getParent().equals(curLocation.getNode().getParent())) 
+						&& (prevLocation.getChildNumber() + 1 == curLocation.getChildNumber()))
 				{
-					curActualLocationText += TextOps.nodeTextExtract(curLocation.getNode());
+					String temp = TextOps.nodeTextExtract(curLocation.getNode());
+					if (!curActualLocationText.endsWith(" ") && !temp.startsWith(" "))
+						curActualLocationText += " ";
+					curActualLocationText += temp;
 				} else if (j != 0)
 				{
 					ActualLocation temp = new ActualLocation(curActualLocationText);
 					temp.setPath(InterfaceOps.getLocationPath(prevLocation));
 					if (!temp.getText().equals(""))
 						curReq.addActualLocation(temp);
-					curActualLocationText = TextOps.nodeTextExtract(curLocation.getNode());
+					String temps = TextOps.nodeTextExtract(curLocation.getNode());
+					curActualLocationText = temps;
 				} else
 				{
-					curActualLocationText += TextOps.nodeTextExtract(curLocation.getNode());
+					String temp = TextOps.nodeTextExtract(curLocation.getNode());
+					curActualLocationText = temp;
 				}
 				prevLocation = curLocation;
 			}
@@ -122,7 +130,7 @@ public class TextOps {
 		//String temp = s.replaceAll("\\s$", "").replaceAll("\\s\n", "\n");
 		//temp = temp.replaceAll("\r?\n", " ").replaceAll("\t", " ").replaceAll("\\s{2,}", " ");
 		//temp = temp.replaceAll("\\s[\\.]", ".").replaceAll("\\s[,]", ",");
-		String temp = s.replaceAll("\\s{1,}$", "");
+		String temp = s.replaceAll("\\s+$", "");
 		temp = temp.replaceAll("\\(", " (");
 		temp = temp.replaceAll("\\[", " [");
 		temp = temp.replaceAll("\t", " ");
@@ -130,14 +138,14 @@ public class TextOps {
 		temp = temp.replaceAll("\\.", ". ").replaceAll(",", ", ");
 		temp = temp.replaceAll("\\;", "; ").replaceAll(":", ": ");
 		
-		temp = temp.replaceAll("\\s{1,}\n", "\n");
+		temp = temp.replaceAll("\\s+\n", "\n");
 		temp = temp.replaceAll("\\s{2,}", " ");
 		temp.replaceAll("\n{2,}", "\n");
-		temp = temp.replaceAll("\\s[\\.]", ".").replaceAll(" [,]", ",");
-		temp = temp.replaceAll("\\s[\\;]", ";").replaceAll(" [:]", ":");
-		temp = temp.replaceAll("\\s[\\)]", ")").replaceAll("[\\(] ", "(");
-		temp = temp.replaceAll("\\s[\\]]", "]").replaceAll("[\\[] ", "[");
-		
+		temp = temp.replaceAll("\\s\\.", ".").replaceAll("\\s,", ",");
+		temp = temp.replaceAll("\\s\\;", ";").replaceAll("\\s:", ":");
+		temp = temp.replaceAll("\\s\\)", ")").replaceAll("\\(\\s ", "(");
+		temp = temp.replaceAll("\\s\\]", "]").replaceAll("\\[\\s ", "[");
+		temp = temp.replaceAll("\\s+$", "").replaceAll("^\\s+", "");
 		
 		return temp;
 	}
