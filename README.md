@@ -21,6 +21,8 @@ TransferManager contains:
 
 	Function extractLowestSectionText, which gets texts of sections, in which we need to transfer ActualLocation.
 
-	Simple symbol diff of two texts using GoogleDiff
+	Simple symbol diff of two texts using GoogleDiff (not used now)
 
-ToDo: get position of Location in first text, and find it in te second if GoogleDiff says everything's okay
+	Simple Transfer functions for ActualLocation, Requalilty, all document - gets position of ActualLocation in first text, and finds it in the second, if there is exact match.
+	
+ToDo: update tree2 structure according to the info we got from ActualLocation transfer.

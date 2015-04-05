@@ -6,7 +6,9 @@ import googleDiff.diff_match_patch.Diff;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import support.ActualLocation;
 import support.Node;
+import support.Requality;
 import support.Tree;
 
 public class TransferManager {
@@ -83,5 +85,82 @@ public class TransferManager {
 		diff_match_patch diffClass = new diff_match_patch();
 		LinkedList<Diff> lst = diffClass.diff_main(s1, s2);
 		return new ArrayList<Diff>(lst);
+	}
+	
+	public static void transfer()
+	{
+		int tr = 0; int all = 0;
+		InterfaceOps.reqs2 = new ArrayList<Requality>();
+		for (int i = 0; i < InterfaceOps.reqs1.size(); i++)
+		{
+			String cur = transferRequality(InterfaceOps.reqs1.get(i), InterfaceOps.tree2);
+			String[] s = cur.split(" ");
+			tr += Integer.valueOf(s[0]);
+			all += Integer.valueOf(s[1]);
+		}
+		System.out.println("Transfer finished. " + tr + " of " + all + " Locations transfered");
+		
+		
+//		for (int i = 0; i < InterfaceOps.reqs2.size(); i++)
+//		{
+//			System.out.println("req:");
+//			Requality curReq = InterfaceOps.reqs2.get(i);
+//			for (int j = 0; j < curReq.getActualLocationlist().size(); j++)
+//			{
+//				System.out.println("loc:");
+//				System.out.println(curReq.getActualLocationlist().get(j).getText());
+//			}
+//		}
+	}
+	
+	public static String transferRequality(Requality r, Tree t2)
+	{
+		int sum = 0;
+		ArrayList<ActualLocation> lst = r.getActualLocationlist();
+		for (int i = 0; i < lst.size(); i++)
+		{
+			sum += transferActualLocation(r, lst.get(i), t2);
+		}
+//		if (sum == lst.size())
+//			System.out.println("REQ: all Locations transfered");
+//		else if (sum == 0)
+//			System.out.println("REQ: transfer impossible");
+//		else
+//			System.out.println("REQ: partially transfered");
+		return sum + " " + lst.size();
+	}
+	
+	public static int transferActualLocation(Requality r, ActualLocation src, Tree t2)
+	{
+		ArrayList<Node> path = src.getPath();
+		ArrayList<Node> simPath = TransferManager.findSimilarPath(path, t2);
+		path = TransferManager.pathTransform(path);
+		String s1 = TransferManager.extractLowestSectionText(path);
+		String s2 = TransferManager.extractLowestSectionText(simPath);
+		s1 = TextOps.regTransform(s1);
+		s2 = TextOps.regTransform(s2);
+		String l = TextOps.regTransform(src.getText());
+		int i1 = s1.indexOf(l);
+		int i2 = s2.indexOf(l);
+		if (i1 == -1)
+		{
+//			System.out.println("  LOC: Something went wrong with location:");
+//			System.out.println(l);
+			return 0;
+		}
+		else if (i2 != -1)
+		{
+			// exact match found, make transfer
+		//	System.out.println("  LOC: Make transfer");
+			//TODO: restore location in the tree2 and restore in JDOM2
+			ActualLocation temp = new ActualLocation(l);
+			temp.setPath(simPath);
+			ReqRestorer.restoreActualLocation(r, temp);
+			return 1;
+		} else
+		{
+			//System.out.println("  LOC: Need magic!");
+			return 0;
+		}
 	}
 }

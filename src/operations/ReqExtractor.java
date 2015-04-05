@@ -11,11 +11,11 @@ public class ReqExtractor {
 	private static ArrayList<Requality> reqs = new ArrayList<Requality>();
 	private static Requality cur;
 	
-	private static int isFound(String id)
+	public static int isFound(String id, ArrayList<Requality> rlst)
 	{
-		for (int i = 0; i < reqs.size(); i++)
+		for (int i = 0; i < rlst.size(); i++)
 		{
-			if (reqs.get(i).getId().equals(id))
+			if (rlst.get(i).getId().equals(id))
 				return i;
 		}
 		return -1;
@@ -26,7 +26,7 @@ public class ReqExtractor {
 		if (n.getType().equals("requality"))
 		{
 			String id = n.getId();
-			int i = isFound(id);
+			int i = isFound(id, reqs);
 			Location x = new Location(n);
 			if (i == -1)
 			{

@@ -77,8 +77,8 @@ public class Tree {
 					aTag = false;
 				} 
 				else if (((Element)c.get(i)).getName().equals("font") || 
-						//((Element)c.get(i)).getName().equals("i") || 
-						//((Element)c.get(i)).getName().equals("b") || 
+						((Element)c.get(i)).getName().equals("i") || 
+						((Element)c.get(i)).getName().equals("b") || 
 						((Element)c.get(i)).getName().equals("blockquote") || 
 						((Element)c.get(i)).getName().equals("a") ||
 						((Element)c.get(i)).getName().equals("sup") ||
@@ -147,14 +147,14 @@ public class Tree {
 	
 	public void makeTreeFromDoc(Document doc) throws FileNotFoundException
 	{
-		out = new PrintStream("tagsMy.txt");
+		//out = new PrintStream("tagsMy.txt");
 		Element r = doc.getRootElement();
 		root = new Node(r, counter);
 		counter++;
 		makeTree(r, root);
-		printMyTree(root,"");
-		out = new PrintStream("tags.txt");
-		printJDOMTree(r,"");
+		//printMyTree(root,"");
+		//out = new PrintStream("tags.txt");
+		//printJDOMTree(r,"");
 		
 	}
 }
