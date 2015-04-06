@@ -24,7 +24,7 @@ public class ReqRestorer {
 		}
 	}
 	
-	private static void createLocation(Node n, int start, int end, Requality r)
+	private static void createLocation(Node n, int start, int end, String locationText, Requality r)
 	{
 		// n is text node
 		String text = n.getText();
@@ -41,18 +41,21 @@ public class ReqRestorer {
 		}
 		for (int i = 0; i < text.length(); i++)
 		{
-			if (text.substring(0, i).length() == start)
+			if (TextOps.regTransform(text.substring(i)).startsWith(locationText))
 			{
 				n.setText(text.substring(0, i));
 				realStart = i;
 			}
-			if (text.substring(0, i + 1).length() == end)
+			if (TextOps.regTransform(text.substring(0, i + 1)).endsWith(locationText))
 			{
 				realEnd = i;
 				break;
 			}
 		}
-		
+		if (TextOps.regTransformNotAll(text).endsWith(locationText))
+			realEnd = text.length();
+		//if ((text.charAt(realStart) == '.') || (text.charAt(realStart) == ' '))
+		//	realStart++;
 		if (n.getText().equals(""))
 		{
 			parent.getChildren().remove(childPos);
@@ -76,6 +79,8 @@ public class ReqRestorer {
 		locText.setDepth(parent.getDepth() + 2);
 		locText.setParent(loc);
 		locText.setType("text");
+		if (realEnd == text.length())
+			realEnd--;
 		locText.setText(text.substring(realStart, realEnd + 1));
 		loc.addChild(locText);
 		
@@ -87,35 +92,45 @@ public class ReqRestorer {
 		if (realEnd + 2 > text.length())
 			other.setText("");
 		else 
-			other.setText(text.substring(realEnd + 2, text.length()));
+			other.setText(text.substring(realEnd + 1, text.length()));
 		if (other.getText().length() != 0)
 			parent.insertChild(other, childPos + 2);
 	}
 	
 	private static int curpos;
+	private static String t;
+	private static boolean f;
 	private static int goTree(Node n, int start, int end, Requality r)
 	{
+		if (f) 
+		{
+			start = curpos;
+			f = false;
+		}
 		if (n.getType().equals("text"))
 		{
 			// it is text, we should decide if we want to skip it
-			String text = TextOps.regTransform(n.getText());
+			String text = n.getText();//TextOps.regTransformNotAll(n.getText());
 			if (curpos + text.length() < start)
 			{
 				// skip
-				curpos += text.length() + 1;
+				curpos += text.length();
 				return 0; // locations not created
 			} else
 			{
-				if (end <= curpos + text.length() + 1)
+				if (end <= curpos + text.length())
 				{
 					// end is also in this text -> create only one location
-					createLocation(n, start - curpos, end - curpos, r);
+					createLocation(n, start - curpos, end - curpos, t, r);
 					return 2; // locations created
 				} else
 				{
 					// end is not in this text
-					createLocation(n, start - curpos, text.length(), r);
-					curpos += text.length() + 1;
+					createLocation(n, start - curpos, text.length(), t.substring(0, text.length() - start + curpos), r);
+					t = t.substring(text.length() - start + curpos);
+					start += text.length() - start + curpos;
+					f = true;
+					curpos += text.length();
 					return 1; // not all locations created
 				}
 			}
@@ -124,11 +139,12 @@ public class ReqRestorer {
 			int x = 0;
 			for (int i = 0; i < n.getChildren().size(); i++)
 			{
-				x = goTree(n.getChildren().get(i), start, end, r);
-				if (x == 1)
-					start = curpos + 1;
+				if (!(f && n.getChildren().get(i).getType().equals("requality")))
+					x = goTree(n.getChildren().get(i), start, end, r);
 				if (x == 2) 
 					break;
+				if (n.getType().startsWith("h"))
+					curpos++;
 			}
 			return x;
 		}
@@ -150,12 +166,20 @@ public class ReqRestorer {
 		
 		// go and see all cur's "text" children
 		curpos = 0;
+		t = l.getText();
+		f = false;
 		goTree(cur, l.getPos(), l.getPos() + l.getText().length(), r);
 	}
 	public static void restoreLocationsInTree()
 	{
 		for (int i = 0; i < InterfaceOps.reqs2.size(); i++)
 			for (int j = 0; j < InterfaceOps.reqs2.get(i).getActualLocationlist().size(); j++)
+			{
 				restoreActualLocationInTree(InterfaceOps.reqs2.get(i), InterfaceOps.reqs2.get(i).getActualLocationlist().get(j));
+				System.out.println(InterfaceOps.reqs2.get(i).getActualLocationlist().get(j).getPos());
+				for (int k = 0; k < InterfaceOps.reqs2.get(i).getLocationlist().size(); k++)
+					System.out.println(InterfaceOps.reqs2.get(i).getLocationlist().get(k).getNode().getChildren().get(0).getText());
+				System.out.println();
+			}
 	}
 }
