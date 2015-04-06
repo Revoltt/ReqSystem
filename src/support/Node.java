@@ -32,7 +32,7 @@ public class Node {
 		}
 	}
 
-	public Node() {}
+	public Node() {children = new ArrayList<Node>(); }
 	
 	public String getAllText() { return allText; }
 	public void setAllText(String s) { allText = s; }
@@ -53,4 +53,6 @@ public class Node {
 	public ArrayList<Node> getChildren() { return children; }
 	public void addChild(Node x) { children.add(x); }
 	public void clearChildren() { children = null; }
+	public void insertChild(Node x, int i) { getChildren().add(i, x); }
+	//public void setChildren(ArrayList<Node> lst) { children = lst; }
 }

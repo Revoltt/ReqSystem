@@ -54,14 +54,18 @@ public class InterfaceOps {
 		makeTrees("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
 		//makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		getReqs(tree1);
+
+		TextOps.createActualLocations();
+
+		TransferManager.transfer();	
+		
+		ReqRestorer.restoreLocationsInTree();
+		
+		tree2.out = new PrintStream("restoredTree.txt");
+		tree2.printMyTree(tree2.getRoot(), "");
 		
 //		@SuppressWarnings("resource")
 //		PrintStream fout = new PrintStream("sections.txt");
-		
-		TextOps.createActualLocations();
-
-		TransferManager.transfer();
-		
 //		// output of all actual locations and their paths, and similar paths in the second document
 //		int q = 0;
 //		int errors = 0;

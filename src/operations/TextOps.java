@@ -43,7 +43,7 @@ public class TextOps {
 		return res;
 	}
 	
-	public static String sectionTextExtract(Node n) // extracts text whole section - header and paragraphs
+	public static String sectionTextExtract(Node n) // extracts text of whole section - header and paragraphs
 	{
 		if (!n.getAllText().equals(""))
 			return n.getAllText();
@@ -72,7 +72,7 @@ public class TextOps {
 						&& (!res.equals("")))
 						res += " ";
 				res += s;
-			} else if (!lst.get(i).getType().startsWith("h")) // do we need texts of included sections???
+			} else if (!lst.get(i).getType().startsWith("h")) // do we need texts of included sections??? NO
 			{
 				String s = sectionTextExtract(lst.get(i));
 				res += "\n" + s;

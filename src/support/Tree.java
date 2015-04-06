@@ -13,7 +13,7 @@ import org.jdom2.Element;
 public class Tree {
 	private Node root;
 	private int counter = 0;
-	private PrintStream out;
+	public PrintStream out;
 	private MyStack headers = new MyStack();
 	
 	public Node getRoot()
@@ -21,7 +21,7 @@ public class Tree {
 		return root;
 	}
 	
-	private void printJDOMTree(Element e, String space)  
+	public void printJDOMTree(Element e, String space)  
 	{
 		if (!e.getName().equals("font"))
 			out.println(space + e.getName());
@@ -40,7 +40,7 @@ public class Tree {
 	}
 
 	
-	private void printMyTree(Node e, String space) 
+	public void printMyTree(Node e, String space) 
 	{
 		out.print(space + e.getType() + " " + e.getNum());
 		if (e.getType().equals("requality"))
@@ -155,6 +155,5 @@ public class Tree {
 		//printMyTree(root,"");
 		//out = new PrintStream("tags.txt");
 		//printJDOMTree(r,"");
-		
 	}
 }

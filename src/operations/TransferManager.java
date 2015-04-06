@@ -154,6 +154,7 @@ public class TransferManager {
 		//	System.out.println("  LOC: Make transfer");
 			//TODO: restore location in the tree2 and restore in JDOM2
 			ActualLocation temp = new ActualLocation(l);
+			temp.setPos(i2);
 			temp.setPath(simPath);
 			ReqRestorer.restoreActualLocation(r, temp);
 			return 1;
