@@ -16,6 +16,17 @@ public class Node {
 	private int depth;
 	private String allText; // for all Nodes, is not "" if getSectionText was called for this Node
 	
+	public int getChildNumber()
+	{
+		Node p = this.getParent();
+		for (int i = 0; i < p.getChildren().size(); i++)
+		{
+			if (p.getChildren().get(i).equals(this))
+				return i;
+		}
+		return -1;
+	}
+	
 	public Node(Element e, int i) 
 	{
 		type = e.getName();
@@ -32,6 +43,7 @@ public class Node {
 		}
 	}
 
+	
 	public Node() {children = new ArrayList<Node>(); }
 	
 	public String getAllText() { return allText; }

@@ -152,7 +152,6 @@ public class TransferManager {
 		{
 			// exact match found, make transfer
 		//	System.out.println("  LOC: Make transfer");
-			//TODO: restore location in the tree2 and restore in JDOM2
 			ActualLocation temp = new ActualLocation(l);
 			temp.setPos(i2);
 			temp.setPath(simPath);

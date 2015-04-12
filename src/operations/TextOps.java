@@ -153,28 +153,4 @@ public class TextOps {
 		
 		return temp;
 	}
-	
-	public static String regTransformNotAll(String s) {
-		//String temp = s.replaceAll("\\s$", "").replaceAll("\\s\n", "\n");
-		//temp = temp.replaceAll("\r?\n", " ").replaceAll("\t", " ").replaceAll("\\s{2,}", " ");
-		//temp = temp.replaceAll("\\s[\\.]", ".").replaceAll("\\s[,]", ",");
-		String temp = s;
-		temp = temp.replaceAll("\\(", " (");
-		temp = temp.replaceAll("\\[", " [");
-		temp = temp.replaceAll("\t", " ");
-		
-		temp = temp.replaceAll("\\.", ". ").replaceAll(",", ", ");
-		temp = temp.replaceAll("\\;", "; ").replaceAll(":", ": ");
-		
-		temp = temp.replaceAll("\\s+\n", "\n");
-		temp = temp.replaceAll("\\s{2,}", " ");
-		temp.replaceAll("\n{2,}", "\n");
-		temp = temp.replaceAll("\\s\\.", ".").replaceAll("\\s,", ",");
-		temp = temp.replaceAll("\\s\\;", ";").replaceAll("\\s:", ":");
-		temp = temp.replaceAll("\\s\\)", ")").replaceAll("\\(\\s ", "(");
-		temp = temp.replaceAll("\\s\\]", "]").replaceAll("\\[\\s ", "[");
-		//temp = temp.replaceAll("\\s+$", "").replaceAll("^\\s+", "");
-		
-		return temp;
-	}
 }
