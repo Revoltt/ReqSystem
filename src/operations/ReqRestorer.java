@@ -24,7 +24,7 @@ public class ReqRestorer {
 		}
 	}
 	
-	private static String letters = new String("abcdefghijklmnopqrstuvwxyz0123456789"); 
+	private static String letters = new String("abcdefghijklmnopqrstuvwxyz0123456789()=+-/*"); 
 	private static int letterCount(String s)
 	{
 		String temp = s.toLowerCase();
@@ -81,12 +81,16 @@ public class ReqRestorer {
 		// add a requality node right after this
 		int pos = x.getChildNumber() + 1;
 		Node n;
+		addedNodes = 0;
 		if (startPos == 0)
 		{
 			n = x;
 			pos--;
 		} else
+		{
 			n = new Node();
+			addedNodes++;
+		}
 		n.setParent(x.getParent());
 		n.setDepth(x.getDepth());
 		n.setType("requality");
@@ -98,6 +102,7 @@ public class ReqRestorer {
 			n.setA(false);
 		if (startPos != 0)
 			x.getParent().insertChild(n, pos);
+		curReq.addLocation(new Location(n));
 		// add a text node to requality node
 		Node t = new Node();
 		t.setParent(n);
@@ -109,6 +114,7 @@ public class ReqRestorer {
 		text = text.substring(endPos + 1);
 		if (!text.equals(""))
 		{
+			addedNodes++;
 			t = new Node();
 			t.setText(text);
 			t.setDepth(n.getDepth());
@@ -121,16 +127,20 @@ public class ReqRestorer {
 	private static int beforeLocationLetters = 0;
 	private static int curLetterCount = 0;
 	private static int locationLetters = 0;
-	private static void goTree(Node x)
+	private static int addedNodes = 0;
+	private static int goTree(Node x)
 	{
+		int index = 0;
 		if (curLetterCount >= beforeLocationLetters + locationLetters)
 		{
 		}else if (!x.getType().equals("text"))
 		{
 			// if x is not text, then go to it's children
-			for (int i = 0; i < x.getChildren().size(); i++)
+			index = 0;
+			while (index < x.getChildren().size())
 			{
-				goTree(x.getChildren().get(i));
+				index += goTree(x.getChildren().get(index));
+				index++;
 			}
 		} else
 		{
@@ -147,8 +157,19 @@ public class ReqRestorer {
 				// before the location, the location itself, and after
 				addLocationInTextNode(x, beforeLocationLetters - curLetterCount, beforeLocationLetters - curLetterCount + locationLetters);
 				curLetterCount += nodeLetters;
+				return addedNodes;
+			} else
+			{
+				// actual location is not in one text node
+				// and it is in this current node
+				addLocationInTextNode(x, beforeLocationLetters - curLetterCount, nodeLetters);
+				curLetterCount += nodeLetters;
+				beforeLocationLetters += nodeLetters;
+				locationLetters -= nodeLetters;
+				return addedNodes;	
 			}
 		}
+		return 0;
 	}
 	
 	public static void restoreActualLocationInTree(ActualLocation src)
@@ -156,10 +177,6 @@ public class ReqRestorer {
 		// count the amount of letters in section before the start of location
 		String section = TransferManager.extractLowestSectionText(src.getPath());
 		String text = TextOps.regTransform(section);
-		if (text.indexOf(src.getText()) == src.getPos())
-		{
-			System.out.println("Nice");
-		}
 		String textPart = text.substring(0, src.getPos());
 		curLetterCount = 0;
 		locationLetters = letterCount(src.getText());
@@ -172,13 +189,16 @@ public class ReqRestorer {
 	private static Requality curReq;
 	public static void restoreLocationsInTree()
 	{
-		for (int i = 0; i < InterfaceOps.reqs2.size(); i++)
+		for (int k = 0; k < InterfaceOps.reqs2.size(); k++)
 		{
-			curReq = InterfaceOps.reqs2.get(i);
+			curReq = InterfaceOps.reqs2.get(k);
 			for (int j = 0; j < curReq.getActualLocationlist().size(); j++)
 			{
 				restoreActualLocationInTree(curReq.getActualLocationlist().get(j));
 			}
+			for (int i = 0; i < curReq.getLocationlist().size(); i++)
+				System.out.print(curReq.getLocationlist().get(i).getNode().getChildren().get(0).getText() + "___");
+			System.out.println();
 		}
 	}
 }

@@ -51,11 +51,11 @@ public class InterfaceOps {
 	
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		makeTrees("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
+		//makeTrees("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
 		//makeTrees("etsip5h7_old.xhtml", "etsip5h7_new.xhtml");
 		//makeTrees("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
 		
-		//makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
+		makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		getReqs(tree1);
 
 		TextOps.createActualLocations();
@@ -64,12 +64,14 @@ public class InterfaceOps {
 		
 		ReqRestorer.restoreLocationsInTree();
 		
-		for (int i = 0; i < reqs2.size(); i++)
-		{
-			for (int j = 0; j < reqs2.get(i).getActualLocationlist().size(); j++)
-				System.out.println(reqs2.get(i).getActualLocationlist().get(j).getText());
-			System.out.println();
-		}
+//		for (int i = 0; i < reqs2.size(); i++)
+//		{
+//			for (int j = 0; j < reqs2.get(i).getActualLocationlist().size(); j++)
+//				System.out.println(reqs2.get(i).getActualLocationlist().get(j).getText());
+//			System.out.println();
+//		}
+		
+		
 		//tree2.out = new PrintStream("restoredTree.txt");
 		//tree2.printMyTree(tree2.getRoot(), "");
 		

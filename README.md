@@ -25,4 +25,5 @@ TransferManager contains:
 
 	Simple Transfer functions for ActualLocation, Requalilty, all document - gets position of ActualLocation in first text, and finds it in the second, if there is exact match.
 	
-ToDo: fix tree2 structure according to the info we got from ActualLocation transfer.
+tree2 is fixed according to trensfered actual locations.
+ToDo: fix JDOM tree of the second document
