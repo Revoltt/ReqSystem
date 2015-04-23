@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import support.Location;
 import support.Node;
-import support.Requality;
+import support.Requirement;
 import support.Tree;
 
 public class ReqExtractor {
-	private static ArrayList<Requality> reqs = new ArrayList<Requality>();
-	private static Requality cur;
+	private static ArrayList<Requirement> reqs = new ArrayList<Requirement>();
+	private static Requirement cur;
 	
-	public static int isFound(String id, ArrayList<Requality> rlst)
+	public static int isFound(String id, ArrayList<Requirement> rlst)
 	{
 		for (int i = 0; i < rlst.size(); i++)
 		{
@@ -23,14 +23,14 @@ public class ReqExtractor {
 	
 	private static void goTree(Node n)
 	{
-		if (n.getType().equals("requality"))
+		if (n.getType().equals("requirement"))
 		{
 			String id = n.getId();
 			int i = isFound(id, reqs);
 			Location x = new Location(n);
 			if (i == -1)
 			{
-				cur = new Requality();
+				cur = new Requirement();
 				cur.setId(id);
 				cur.addLocation(x);
 				reqs.add(cur);
@@ -46,7 +46,7 @@ public class ReqExtractor {
 			}
 	}
 	
-	public static ArrayList<Requality> extractReqsFromTree(Tree t)
+	public static ArrayList<Requirement> extractReqsFromTree(Tree t)
 	{
 		goTree(t.getRoot());
 		return reqs;

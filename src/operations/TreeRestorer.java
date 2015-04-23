@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import support.ActualLocation;
 import support.Location;
 import support.Node;
-import support.Requality;
+import support.Requirement;
 
-public class ReqRestorer {
+public class TreeRestorer {
 	
-	public static void restoreActualLocation(Requality r, ActualLocation l)
+	public static void restoreActualLocation(Requirement r, ActualLocation l)
 	{
 		int index = ReqExtractor.isFound(r.getId(), InterfaceOps.reqs2);
 		if ( index == -1)
 		{
-			Requality cur = new Requality();
+			Requirement cur = new Requirement();
 			cur.setId(r.getId());
 			cur.addActualLocation(l);
 			InterfaceOps.reqs2.add(cur);
@@ -78,7 +78,7 @@ public class ReqRestorer {
 		
 		// i - index where we should cut the node text
 		x.setText(text.substring(0, startPos));
-		// add a requality node right after this
+		// add a requirement node right after this
 		int pos = x.getChildNumber() + 1;
 		Node n;
 		addedNodes = 0;
@@ -93,7 +93,7 @@ public class ReqRestorer {
 		}
 		n.setParent(x.getParent());
 		n.setDepth(x.getDepth());
-		n.setType("requality");
+		n.setType("requirement");
 		n.setId(curReq.getId());
 		n.setText("");
 		if (curReq.getLocationlist().size() == 0)
@@ -103,14 +103,14 @@ public class ReqRestorer {
 		if (startPos != 0)
 			x.getParent().insertChild(n, pos);
 		curReq.addLocation(new Location(n));
-		// add a text node to requality node
+		// add a text node to requirement node
 		Node t = new Node();
 		t.setParent(n);
 		t.setDepth(n.getDepth() + 1);
 		t.setText(text.substring(startPos, endPos + 1));
 		t.setType("text");
 		n.addChild(t);
-		// add the rest of the text after requality, if there is any
+		// add the rest of the text after requirement, if there is any
 		text = text.substring(endPos + 1);
 		if (!text.equals(""))
 		{
@@ -186,7 +186,7 @@ public class ReqRestorer {
 		
 	}
 	
-	private static Requality curReq;
+	private static Requirement curReq;
 	public static void restoreLocationsInTree()
 	{
 		for (int k = 0; k < InterfaceOps.reqs2.size(); k++)

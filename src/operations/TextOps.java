@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import support.ActualLocation;
 import support.Location;
 import support.Node;
-import support.Requality;
+import support.Requirement;
 
 public class TextOps {
-	public static String nodeTextExtract(Node n) // extracts text of some Node - Header or Requality
+	public static String nodeTextExtract(Node n) // extracts text of some Node - Header or requirement
 	{
 		String res = "";
 		ArrayList<Node> lst = n.getChildren();
@@ -24,7 +24,7 @@ public class TextOps {
 					&& (!res.equals("")))
 					res += " ";
 				res += lst.get(i).getText();
-			} else if (lst.get(i).getType().equals("requality"))
+			} else if (lst.get(i).getType().equals("requirement"))
 			{
 				String s = nodeTextExtract(lst.get(i));
 				if (!res.endsWith(" ") && !s.startsWith(" ") 
@@ -61,7 +61,7 @@ public class TextOps {
 					&& (!res.equals("")))
 					res += " ";
 				res += lst.get(i).getText();
-			} else if (lst.get(i).getType().equals("requality"))
+			} else if (lst.get(i).getType().equals("requirement"))
 			{
 				String s = sectionTextExtract(lst.get(i));
 				if (!res.endsWith(" ") && !s.startsWith(" ") 
@@ -89,7 +89,7 @@ public class TextOps {
 		{
 			//if (i == 15)
 			//	System.out.println("a");
-			Requality curReq = InterfaceOps.reqs1.get(i);
+			Requirement curReq = InterfaceOps.reqs1.get(i);
 			String curActualLocationText = "";
 			Location prevLocation = null;
 			for (int j = 0; j < curReq.getLocationlist().size(); j++)

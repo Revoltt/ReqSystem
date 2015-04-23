@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 import support.ActualLocation;
 import support.Node;
-import support.Requality;
+import support.Requirement;
 import support.Tree;
 
 public class TransferManager {
@@ -90,10 +90,10 @@ public class TransferManager {
 	public static void transfer()
 	{
 		int tr = 0; int all = 0;
-		InterfaceOps.reqs2 = new ArrayList<Requality>();
+		InterfaceOps.reqs2 = new ArrayList<Requirement>();
 		for (int i = 0; i < InterfaceOps.reqs1.size(); i++)
 		{
-			String cur = transferRequality(InterfaceOps.reqs1.get(i), InterfaceOps.tree2);
+			String cur = transferRequirement(InterfaceOps.reqs1.get(i), InterfaceOps.tree2);
 			String[] s = cur.split(" ");
 			tr += Integer.valueOf(s[0]);
 			all += Integer.valueOf(s[1]);
@@ -113,7 +113,7 @@ public class TransferManager {
 //		}
 	}
 	
-	public static String transferRequality(Requality r, Tree t2)
+	public static String transferRequirement(Requirement r, Tree t2)
 	{
 		int sum = 0;
 		ArrayList<ActualLocation> lst = r.getActualLocationlist();
@@ -130,7 +130,7 @@ public class TransferManager {
 		return sum + " " + lst.size();
 	}
 	
-	public static int transferActualLocation(Requality r, ActualLocation src, Tree t2)
+	public static int transferActualLocation(Requirement r, ActualLocation src, Tree t2)
 	{
 		ArrayList<Node> path = src.getPath();
 		ArrayList<Node> simPath = TransferManager.findSimilarPath(path, t2);
@@ -155,7 +155,7 @@ public class TransferManager {
 			ActualLocation temp = new ActualLocation(l);
 			temp.setPos(i2);
 			temp.setPath(simPath);
-			ReqRestorer.restoreActualLocation(r, temp);
+			TreeRestorer.restoreActualLocation(r, temp);
 			return 1;
 		} else
 		{

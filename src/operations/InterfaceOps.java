@@ -11,14 +11,14 @@ import org.jdom2.*;
 import support.DOMStructBuilder;
 import support.Location;
 import support.Node;
-import support.Requality;
+import support.Requirement;
 import support.Tree;
 
 public class InterfaceOps {
 	static Tree tree1;
 	static Tree tree2;
-	static ArrayList<Requality> reqs1;
-	static ArrayList<Requality> reqs2;
+	static ArrayList<Requirement> reqs1;
+	static ArrayList<Requirement> reqs2;
 	
 	public static void makeTrees(String filename1, String filename2) throws FileNotFoundException
 	{
@@ -51,18 +51,18 @@ public class InterfaceOps {
 	
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		//makeTrees("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
+		makeTrees("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
 		//makeTrees("etsip5h7_old.xhtml", "etsip5h7_new.xhtml");
 		//makeTrees("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
 		
-		makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
+		//makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
 		getReqs(tree1);
 
 		TextOps.createActualLocations();
 
 		TransferManager.transfer();	
 		
-		ReqRestorer.restoreLocationsInTree();
+		TreeRestorer.restoreLocationsInTree();
 		
 //		for (int i = 0; i < reqs2.size(); i++)
 //		{

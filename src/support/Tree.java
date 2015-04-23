@@ -43,7 +43,7 @@ public class Tree {
 	public void printMyTree(Node e, String space) 
 	{
 		out.print(space + e.getType() + " " + e.getNum());
-		if (e.getType().equals("requality"))
+		if (e.getType().equals("requirement"))
 		{
 			out.print(" " + e.getA() + " " + e.getId());
 		}
@@ -71,15 +71,15 @@ public class Tree {
 		{
 			if (c.get(i).getClass().equals(Element.class))
 			{
-				if (aTag && ((Element)c.get(i)).getName().equals("a") && cur.getType().equals("requality"))
+				if (aTag && ((Element)c.get(i)).getName().equals("a") && cur.getType().equals("requirement"))
 				{
 					cur.setA(true);
 					aTag = false;
 				} 
 				else if (((Element)c.get(i)).getName().equals("font") || 
-						((Element)c.get(i)).getName().equals("i") || 
-						((Element)c.get(i)).getName().equals("b") || 
-						((Element)c.get(i)).getName().equals("blockquote") || 
+						//((Element)c.get(i)).getName().equals("i") || 
+						//((Element)c.get(i)).getName().equals("b") || 
+						//((Element)c.get(i)).getName().equals("blockquote") || 
 						((Element)c.get(i)).getName().equals("a") ||
 						((Element)c.get(i)).getName().equals("sup") ||
 						((Element)c.get(i)).getName().equals("img") || 
@@ -91,7 +91,7 @@ public class Tree {
 				{
 					Node temp = new Node((Element)c.get(i), counter);
 					counter++;
-					temp.setType("requality");
+					temp.setType("requirement");
 					temp.setId(((Element)c.get(i)).getAttribute("class").getValue().substring(18));
 					temp.setParent(cur);
 					temp.setDepth(cur.getDepth() + 1);
