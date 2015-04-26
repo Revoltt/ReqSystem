@@ -1,8 +1,5 @@
 package operations;
 
-import googleDiff.diff_match_patch;
-import googleDiff.diff_match_patch.Diff;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -80,14 +77,7 @@ public class TransferManager {
 		return TextOps.sectionTextExtract(path.get(i));
 	}
 	
-	public static ArrayList<Diff> diff(String s1, String s2)
-	{
-		diff_match_patch diffClass = new diff_match_patch();
-		LinkedList<Diff> lst = diffClass.diff_main(s1, s2);
-		return new ArrayList<Diff>(lst);
-	}
-	
-	public static void transfer()
+	public static String transfer()
 	{
 		int tr = 0; int all = 0;
 		InterfaceOps.reqs2 = new ArrayList<Requirement>();
@@ -99,7 +89,7 @@ public class TransferManager {
 			all += Integer.valueOf(s[1]);
 		}
 		System.out.println("Transfer finished. " + tr + " of " + all + " Locations transfered");
-		
+		return tr + " " + all;
 		
 //		for (int i = 0; i < InterfaceOps.reqs2.size(); i++)
 //		{
@@ -153,6 +143,7 @@ public class TransferManager {
 			// exact match found, make transfer
 		//	System.out.println("  LOC: Make transfer");
 			ActualLocation temp = new ActualLocation(l);
+			//System.out.println(l);
 			temp.setPos(i2);
 			temp.setPath(simPath);
 			TreeRestorer.restoreActualLocation(r, temp);

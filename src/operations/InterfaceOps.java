@@ -1,8 +1,8 @@
 package operations;
 
-import googleDiff.diff_match_patch.Diff;
-
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -13,6 +13,7 @@ import support.Location;
 import support.Node;
 import support.Requirement;
 import support.Tree;
+import testing.TestClass;
 
 public class InterfaceOps {
 	static Tree tree1;
@@ -49,20 +50,37 @@ public class InterfaceOps {
 		return path;
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException
+	public static String run(String f1, String f2) throws FileNotFoundException
 	{
-		makeTrees("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
-		//makeTrees("etsip5h7_old.xhtml", "etsip5h7_new.xhtml");
-		//makeTrees("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
-		
-		//makeTrees("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
-		getReqs(tree1);
+		String s = "0 0";
+		System.out.print(f1 + " "); 
+		if ((new File(f1)).exists() && (new File(f2)).exists())
+		{
+			makeTrees(f1, f2);
+			getReqs(tree1);
 
-		TextOps.createActualLocations();
+			TextOps.createActualLocations();
 
-		TransferManager.transfer();	
+			s = TransferManager.transfer();	
+			
+			TreeRestorer.restoreLocationsInTree();
+
+		} else
+		{
+			System.out.println("FILE NOT FOUND");
+		}
+		return s;
+	}
+	
+	public static void main(String[] args) throws IOException
+	{
+		//run("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
+		//run("etsip5h7_old.xhtml", "etsip5h7_new.xhtml");
+		//run("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
 		
-		TreeRestorer.restoreLocationsInTree();
+		//run("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
+		//run("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml")
+		TestClass.testPosix();
 		
 //		for (int i = 0; i < reqs2.size(); i++)
 //		{

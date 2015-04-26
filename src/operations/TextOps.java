@@ -17,10 +17,10 @@ public class TextOps {
 			if (lst.get(i).getType().equals("text"))
 			{
 				if (!res.endsWith(" ") && !lst.get(i).getText().startsWith(" ") 
-					&& !res.endsWith(",") && !lst.get(i).getText().startsWith(",") 
-					&& !res.endsWith(".") && !lst.get(i).getText().startsWith(".")
-					&& !res.endsWith(";") && !lst.get(i).getText().startsWith(";")
-					&& !res.endsWith(":") && !lst.get(i).getText().startsWith(":")
+					//&& !res.endsWith(",") && !lst.get(i).getText().startsWith(",") 
+					//&& !res.endsWith(".") && !lst.get(i).getText().startsWith(".")
+					//&& !res.endsWith(";") && !lst.get(i).getText().startsWith(";")
+					//&& !res.endsWith(":") && !lst.get(i).getText().startsWith(":")
 					&& (!res.equals("")))
 					res += " ";
 				res += lst.get(i).getText();
@@ -28,10 +28,10 @@ public class TextOps {
 			{
 				String s = nodeTextExtract(lst.get(i));
 				if (!res.endsWith(" ") && !s.startsWith(" ") 
-						&& !res.endsWith(",") && !s.startsWith(",") 
-						&& !res.endsWith(".") && !s.startsWith(".")
-						&& !res.endsWith(";") && !s.startsWith(";")
-						&& !res.endsWith(":") && !s.startsWith(":")
+						//&& !res.endsWith(",") && !s.startsWith(",") 
+						//&& !res.endsWith(".") && !s.startsWith(".")
+						//&& !res.endsWith(";") && !s.startsWith(";")
+						//&& !res.endsWith(":") && !s.startsWith(":")
 						&& (!res.equals("")))
 						res += " ";
 				res += s;

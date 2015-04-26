@@ -48,6 +48,7 @@ public class ReqExtractor {
 	
 	public static ArrayList<Requirement> extractReqsFromTree(Tree t)
 	{
+		reqs = new ArrayList<Requirement>();
 		goTree(t.getRoot());
 		return reqs;
 	}

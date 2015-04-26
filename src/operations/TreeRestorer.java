@@ -196,9 +196,11 @@ public class TreeRestorer {
 			{
 				restoreActualLocationInTree(curReq.getActualLocationlist().get(j));
 			}
-			for (int i = 0; i < curReq.getLocationlist().size(); i++)
-				System.out.print(curReq.getLocationlist().get(i).getNode().getChildren().get(0).getText() + "___");
-			System.out.println();
+			
+//			System.out.print(k + "  ");
+//			for (int i = 0; i < curReq.getLocationlist().size(); i++)
+//				System.out.print(curReq.getLocationlist().get(i).getNode().getChildren().get(0).getText() + "___");
+//			System.out.println();
 		}
 	}
 }
