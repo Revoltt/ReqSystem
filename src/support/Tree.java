@@ -86,7 +86,7 @@ public class Tree {
 						((Element)c.get(i)).getName().equals("hr") ||
 						((Element)c.get(i)).getName().equals("div") ||
 						((Element)c.get(i)).getName().equals("script") || 
-						//((Element)c.get(i)).getName().equals("tt") || 
+						((Element)c.get(i)).getName().equals("tt") || 
 						((Element)c.get(i)).getName().equals("br"))
 					makeTree((Element)c.get(i), cur);
 				else if (((Element)c.get(i)).getName().equals("span") && 
@@ -151,12 +151,12 @@ public class Tree {
 	
 	public void makeTreeFromDoc(Document doc) throws FileNotFoundException
 	{
-		out = new PrintStream("tagsMy.txt");
+		//out = new PrintStream("tagsMy.txt");
 		Element r = doc.getRootElement();
 		root = new Node(r, counter);
 		counter++;
 		makeTree(r, root);
-		printMyTree(root,"");
+		//printMyTree(root,"");
 		//out = new PrintStream("tags.txt");
 		//printJDOMTree(r,"");
 	}

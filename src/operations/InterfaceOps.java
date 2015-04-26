@@ -79,7 +79,11 @@ public class InterfaceOps {
 		//run("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
 		
 		//run("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
-		//run("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml")
+		//run("posix/v3/a64l.html.xhtml", "posix/v4/a64l.html.xhtml");
+		//run("posix/v3/fprintf.html.xhtml", "posix/v4/fprintf.html.xhtml");
+		//run("posix/v3/fwprintf.html.xhtml", "posix/v4/fwprintf.html.xhtml");
+		//run("posix/v3/environ.html.xhtml", "posix/v4/environ.html.xhtml");
+		
 		TestClass.testPosix();
 		
 //		for (int i = 0; i < reqs2.size(); i++)

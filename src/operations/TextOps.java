@@ -135,6 +135,9 @@ public class TextOps {
 		temp = temp.replaceAll("\\[", " [");
 		temp = temp.replaceAll("\t", " ");
 		
+		temp = temp.replaceAll("\\'", " '");
+		temp = temp.replaceAll("\"", " \"");
+		
 		temp = temp.replaceAll("\\.", ". ").replaceAll(",", ", ");
 		temp = temp.replaceAll("\\;", "; ").replaceAll(":", ": ");
 		
@@ -147,6 +150,10 @@ public class TextOps {
 		temp = temp.replaceAll("\\s\\;", ";").replaceAll("\\s:", ":");
 		temp = temp.replaceAll("\\s\\)", ")").replaceAll("\\(\\s ", "(");
 		temp = temp.replaceAll("\\s\\]", "]").replaceAll("\\[\\s ", "[");
+		
+		temp = temp.replaceAll("\\s\'", "'").replaceAll("\'\\s", "'");
+		temp = temp.replaceAll("\\s\"", "\"").replaceAll("\"\\s", "\"");
+		
 		temp = temp.replaceAll("\\s+$", "").replaceAll("^\\s+", "");
 		temp = temp.replaceAll("[.,:;!?]$", "").replaceAll("^[.,:;!?]", "");
 		

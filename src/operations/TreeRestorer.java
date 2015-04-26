@@ -24,7 +24,7 @@ public class TreeRestorer {
 		}
 	}
 	
-	private static String letters = new String("abcdefghijklmnopqrstuvwxyz0123456789()=+-/*"); 
+	private static String letters = new String("abcdefghijklmnopqrstuvwxyz0123456789()=+-/*[]{}'\""); 
 	private static int letterCount(String s)
 	{
 		String temp = s.toLowerCase();
@@ -47,7 +47,7 @@ public class TreeRestorer {
 		return path.get(i);
 	} 
 	
-	private static void addLocationInTextNode(Node x, int start, int finish)
+	private static int addLocationInTextNode(Node x, int start, int finish)
 	{
 		String text = x.getText();
 		int i = 0;
@@ -109,6 +109,7 @@ public class TreeRestorer {
 		t.setDepth(n.getDepth() + 1);
 		t.setText(text.substring(startPos, endPos + 1));
 		t.setType("text");
+		int res = letterCount(t.getText());
 		n.addChild(t);
 		// add the rest of the text after requirement, if there is any
 		text = text.substring(endPos + 1);
@@ -122,6 +123,7 @@ public class TreeRestorer {
 			t.setType("text");
 			t.getParent().insertChild(t, pos + 1);
 		}
+		return res;
 	}
 	
 	private static int beforeLocationLetters = 0;
@@ -162,10 +164,11 @@ public class TreeRestorer {
 			{
 				// actual location is not in one text node
 				// and it is in this current node
-				addLocationInTextNode(x, beforeLocationLetters - curLetterCount, nodeLetters);
+				int q = addLocationInTextNode(x, beforeLocationLetters - curLetterCount, nodeLetters);
 				curLetterCount += nodeLetters;
-				beforeLocationLetters += nodeLetters;
-				locationLetters -= nodeLetters;
+				//beforeLocationLetters += nodeLetters;
+				beforeLocationLetters = curLetterCount;
+				locationLetters -= q;
 				return addedNodes;	
 			}
 		}
@@ -192,15 +195,17 @@ public class TreeRestorer {
 		for (int k = 0; k < InterfaceOps.reqs2.size(); k++)
 		{
 			curReq = InterfaceOps.reqs2.get(k);
+			//if (k == 15)
+			//	System.out.println("a");
 			for (int j = 0; j < curReq.getActualLocationlist().size(); j++)
 			{
 				restoreActualLocationInTree(curReq.getActualLocationlist().get(j));
 			}
 			
-//			System.out.print(k + "  ");
-//			for (int i = 0; i < curReq.getLocationlist().size(); i++)
-//				System.out.print(curReq.getLocationlist().get(i).getNode().getChildren().get(0).getText() + "___");
-//			System.out.println();
+			//System.out.print(k + "  ");
+			//for (int i = 0; i < curReq.getLocationlist().size(); i++)
+			//	System.out.print(curReq.getLocationlist().get(i).getNode().getChildren().get(0).getText() + "___");
+			//System.out.println();
 		}
 	}
 }
