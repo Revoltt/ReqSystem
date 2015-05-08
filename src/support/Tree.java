@@ -76,18 +76,23 @@ public class Tree {
 					cur.setA(true);
 					aTag = false;
 				} 
-				else if (((Element)c.get(i)).getName().equals("font") || 
-						((Element)c.get(i)).getName().equals("i") || 
-						((Element)c.get(i)).getName().equals("b") || 
-						//((Element)c.get(i)).getName().equals("blockquote") || 
-						((Element)c.get(i)).getName().equals("a") ||
-						((Element)c.get(i)).getName().equals("sup") ||
-						((Element)c.get(i)).getName().equals("img") || 
-						((Element)c.get(i)).getName().equals("hr") ||
-						((Element)c.get(i)).getName().equals("div") ||
-						((Element)c.get(i)).getName().equals("script") || 
-						((Element)c.get(i)).getName().equals("tt") || 
-						((Element)c.get(i)).getName().equals("br"))
+				else if (!((Element)c.get(i)).getName().equals("blockquote") &&
+						 !((Element)c.get(i)).getName().equals("p") &&
+						 !((Element)c.get(i)).getName().startsWith("h") &&
+						 !((Element)c.get(i)).getName().equals("span") ||
+						 ((Element)c.get(i)).getName().equals("hr"))
+//						(((Element)c.get(i)).getName().equals("font") || 
+//						((Element)c.get(i)).getName().equals("i") || 
+//						((Element)c.get(i)).getName().equals("b") || 
+//						//((Element)c.get(i)).getName().equals("blockquote") || 
+//						((Element)c.get(i)).getName().equals("a") ||
+//						((Element)c.get(i)).getName().equals("sup") ||
+//						((Element)c.get(i)).getName().equals("img") || 
+//						((Element)c.get(i)).getName().equals("hr") ||
+//						((Element)c.get(i)).getName().equals("div") ||
+//						((Element)c.get(i)).getName().equals("script") || 
+//						((Element)c.get(i)).getName().equals("tt") || 
+//						((Element)c.get(i)).getName().equals("br"))
 					makeTree((Element)c.get(i), cur);
 				else if (((Element)c.get(i)).getName().equals("span") && 
 						(((Element)c.get(i)).getAttribute("class") != null) &&

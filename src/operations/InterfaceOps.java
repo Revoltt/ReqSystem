@@ -56,6 +56,7 @@ public class InterfaceOps {
 		System.out.print(f1 + " "); 
 		if ((new File(f1)).exists() && (new File(f2)).exists())
 		{
+			long startTime = System.currentTimeMillis();
 			makeTrees(f1, f2);
 			getReqs(tree1);
 
@@ -64,7 +65,9 @@ public class InterfaceOps {
 			s = TransferManager.transfer();	
 			
 			TreeRestorer.restoreLocationsInTree();
-
+			
+			long timeSpent = System.currentTimeMillis() - startTime;
+			System.out.println("Run time " + timeSpent + " ms");
 		} else
 		{
 			System.out.println("FILE NOT FOUND");
@@ -74,17 +77,24 @@ public class InterfaceOps {
 	
 	public static void main(String[] args) throws IOException
 	{
-		//run("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
-		//run("etsip5h7_old.xhtml", "etsip5h7_new.xhtml");
-		//run("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
+//		run("etsip3h5_old.xhtml", "etsip3h5_new.xhtml");
+//		run("etsip5h7_old.xhtml", "etsip5h7_new.xhtml");
+//		run("etsip4h6_old.xhtml", "etsip4h6_new.xhtml");
+//		
+//		run("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
+//		run("posix/v3/fscanf.html.xhtml", "posix/v4/fscanf.html.xhtml");
+//		run("posix/v3/fprintf.html.xhtml", "posix/v4/fprintf.html.xhtml");
+//		run("posix/v3/fwprintf.html.xhtml", "posix/v4/fwprintf.html.xhtml");
+//		run("posix/v3/environ.html.xhtml", "posix/v4/environ.html.xhtml");
+//		run("lsb/v3/zlib-deflateinit2.html.xhtml", "lsb/v4/zlib-deflateinit2.html.xhtml");
+//		run("lsb/v3/zlib-deflate-1.html.xhtml", "lsb/v4/zlib-deflate-1.html.xhtml");
+//		run("lsb/v3/libutil-getopt-3.html.xhtml", "lsb/v4/libutil-getopt-3.html.xhtml");
+		run("testold.xhtml", "testnew1.xhtml");
+		//TestClass.testPosix();
+		//TestClass.testLsb();
 		
-		//run("Draft_ETSI_TS_103 097 v1.1.12.xhtml", "Draft_ETSI_TS_103 097 v1.1.14.xhtml");
-		//run("posix/v3/a64l.html.xhtml", "posix/v4/a64l.html.xhtml");
-		//run("posix/v3/fprintf.html.xhtml", "posix/v4/fprintf.html.xhtml");
-		//run("posix/v3/fwprintf.html.xhtml", "posix/v4/fwprintf.html.xhtml");
-		//run("posix/v3/environ.html.xhtml", "posix/v4/environ.html.xhtml");
-		
-		TestClass.testPosix();
+		//tree2.out = new PrintStream("tagsMy.txt");
+		//tree2.printMyTree(tree2.getRoot(),"");
 		
 //		for (int i = 0; i < reqs2.size(); i++)
 //		{

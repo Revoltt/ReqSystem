@@ -106,10 +106,12 @@ public class TransferManager {
 	public static String transferRequirement(Requirement r, Tree t2)
 	{
 		int sum = 0;
+		int sumAll = 0;
 		ArrayList<ActualLocation> lst = r.getActualLocationlist();
 		for (int i = 0; i < lst.size(); i++)
 		{
 			sum += transferActualLocation(r, lst.get(i), t2);
+			sumAll += lst.get(i).getLocNum();
 		}
 //		if (sum == lst.size())
 //			System.out.println("REQ: all Locations transfered");
@@ -117,7 +119,7 @@ public class TransferManager {
 //			System.out.println("REQ: transfer impossible");
 //		else
 //			System.out.println("REQ: partially transfered");
-		return sum + " " + lst.size();
+		return sum + " " + sumAll;
 	}
 	
 	public static int transferActualLocation(Requirement r, ActualLocation src, Tree t2)
@@ -147,7 +149,7 @@ public class TransferManager {
 			temp.setPos(i2);
 			temp.setPath(simPath);
 			TreeRestorer.restoreActualLocation(r, temp);
-			return 1;
+			return src.getLocNum();
 		} else
 		{
 			//System.out.println("  LOC: Need magic!");

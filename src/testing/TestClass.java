@@ -29,5 +29,25 @@ public static void testPosix() throws IOException
 	System.out.println(res);
 }
 
+public static void testLsb() throws IOException
+{
+	@SuppressWarnings("resource")
+	BufferedReader reader = new BufferedReader(new FileReader("LSB_NAMES.txt"));
+    String line;
+    ArrayList<String> lsb = new ArrayList<String>();
+    while ((line = reader.readLine()) != null) {
+        lsb.add(line);
+    }
+    String res = "0 0";
+	for (int i = 0; i < lsb.size(); i++)
+	{
+		String[] cur = InterfaceOps.run("lsb/v3/" + lsb.get(i), "lsb/v4/" + lsb.get(i)).split(" ");
+		String[] temp = res.split(" ");
+		int tr = Integer.valueOf(temp[0])+ Integer.valueOf(cur[0]);
+		int all = Integer.valueOf(temp[1])+ Integer.valueOf(cur[1]);
+		res = tr + " " + all;
+	}
+	System.out.println(res);
+}
 
 }

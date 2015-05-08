@@ -6,7 +6,10 @@ public class ActualLocation {
 	private String text;
 	private ArrayList<Node> path;
 	private int pos; // used only when restoring locations by actual location
+	private int locNum;
 	
+	public void setLocNum(int n) { locNum = n; }
+	public int getLocNum() { return locNum; }
 	public ActualLocation(String t) { text = t; pos = 0; }
 	public void setPos(int p) { pos = p; }
 	public int getPos() {return pos; }

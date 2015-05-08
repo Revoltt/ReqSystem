@@ -54,10 +54,10 @@ public class TextOps {
 			if (lst.get(i).getType().equals("text"))
 			{
 				if (!res.endsWith(" ") && !lst.get(i).getText().startsWith(" ") 
-					&& !res.endsWith(",") && !lst.get(i).getText().startsWith(",") 
-					&& !res.endsWith(".") && !lst.get(i).getText().startsWith(".")
-					&& !res.endsWith(";") && !lst.get(i).getText().startsWith(";")
-					&& !res.endsWith(":") && !lst.get(i).getText().startsWith(":")
+//					&& !res.endsWith(",") && !lst.get(i).getText().startsWith(",") 
+//					&& !res.endsWith(".") && !lst.get(i).getText().startsWith(".")
+//					&& !res.endsWith(";") && !lst.get(i).getText().startsWith(";")
+//					&& !res.endsWith(":") && !lst.get(i).getText().startsWith(":")
 					&& (!res.equals("")))
 					res += " ";
 				res += lst.get(i).getText();
@@ -65,10 +65,10 @@ public class TextOps {
 			{
 				String s = sectionTextExtract(lst.get(i));
 				if (!res.endsWith(" ") && !s.startsWith(" ") 
-						&& !res.endsWith(",") && !s.startsWith(",") 
-						&& !res.endsWith(".") && !s.startsWith(".")
-						&& !res.endsWith(";") && !s.startsWith(";")
-						&& !res.endsWith(":") && !s.startsWith(":")
+//						&& !res.endsWith(",") && !s.startsWith(",") 
+//						&& !res.endsWith(".") && !s.startsWith(".")
+//						&& !res.endsWith(";") && !s.startsWith(";")
+//						&& !res.endsWith(":") && !s.startsWith(":")
 						&& (!res.equals("")))
 						res += " ";
 				res += s;
@@ -92,6 +92,7 @@ public class TextOps {
 			Requirement curReq = InterfaceOps.reqs1.get(i);
 			String curActualLocationText = "";
 			Location prevLocation = null;
+			int num = 0;
 			for (int j = 0; j < curReq.getLocationlist().size(); j++)
 			{
 				Location curLocation = curReq.getLocationlist().get(j);
@@ -102,23 +103,29 @@ public class TextOps {
 					if (!curActualLocationText.endsWith(" ") && !temp.startsWith(" "))
 						curActualLocationText += " ";
 					curActualLocationText += temp;
+					num++;
 				} else if (j != 0)
 				{
 					ActualLocation temp = new ActualLocation(curActualLocationText);
 					temp.setPath(InterfaceOps.getLocationPath(prevLocation));
+					temp.setLocNum(num);
+					num = 0;
 					if (!temp.getText().equals(""))
 						curReq.addActualLocation(temp);
 					String temps = TextOps.nodeTextExtract(curLocation.getNode());
 					curActualLocationText = temps;
+					num = 1;
 				} else
 				{
 					String temp = TextOps.nodeTextExtract(curLocation.getNode());
 					curActualLocationText = temp;
+					num++;
 				}
 				prevLocation = curLocation;
 			}
 			ActualLocation temp = new ActualLocation(curActualLocationText);
 			temp.setPath(InterfaceOps.getLocationPath(prevLocation));
+			temp.setLocNum(num);
 			if (!temp.getText().equals(""))
 				curReq.addActualLocation(temp);
 			
